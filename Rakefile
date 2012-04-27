@@ -228,7 +228,8 @@ task :setup do
   file_name = "lib/language_pack/octopress.rb"
   config = YAML.load_file("config.yml")
   text = File.read(file_name)
-  text.gsub!(/##git_url##/, config["git_url"])
-  text.gsub!(/##git_branch##/, config["git_branch"])
+
+  text.gsub!(/git remote add upstream.*/, "git remote add upstream #{config["git_url"]}\")")
+  text.gsub!(/git pull upstream.*/, "git pull upstream #{config["git_branch"]}\")")
   File.open(file_name, "w") {|file| file.write(text) }
 end
